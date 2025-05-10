@@ -76,7 +76,6 @@
     </select>
     <div id="photoContainer" style="display: none">
       <!-- tes images ici -->
-
       <div class="photo-grid" id="photoGrid">
         <img id="face" class="photo" onclick="selectPhoto(this)" alt="Face" />
         <img
@@ -128,30 +127,35 @@
           return;
         }
 
+        // Utilisation correcte des variables `name` et `selected`
+        const formData = new FormData();
+        formData.append("nom", name); // Utilisation de `name` au lieu de `userName`
+        formData.append("photo", selected); // Utilisation de `selected` au lieu de `photoChosen`
+
         fetch(
-          "https://script.google.com/macros/s/AKfycbzOKdbjfsB-YDSy2YVcK-pT3hWISn7-9Bd2Xiope9iu5FxYLBCQv0CLfw06K3xx5iKm/exec",
+          "https://script.google.com/macros/s/AKfycbyda8LCO3JSiey28psfV6TGvAeqdXN-prMFH5piUJGKtbH6TDa3ZeZ0z-djqpbCpzVN1Q/exec",
           {
             method: "POST",
-            body: JSON.stringify({ name, photo: selected }),
-            headers: {
-              "Content-Type": "application/json",
-            },
+            body: formData,
           }
         )
-          .then((res) => res.text())
-          .then((msg) =>
-            alert("👍 Super !! On a bien noté votre choix royal 👑")
-          )
-          .catch((err) => alert("Erreur réseau 😢"));
-        // Réinitialise la sélection
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("Success:", data);
+            alert("👍 Super !! On a bien noté votre choix royal 👑");
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+            alert("Erreur réseau 😢");
+          });
+
+        // Réinitialiser les éléments après soumission
         document.getElementById("nameSelect").value = "";
-        // Cache les photos
         document.getElementById("photoContainer").style.display = "none";
-        // Réinitialise la sélection de photo
-        selectedPhoto = null;
-        photoElements.forEach((p) => {
+        document.querySelectorAll(".photo").forEach((p) => {
           p.classList.remove("selected");
         });
+        selected = ""; // Réinitialisation de la sélection
       }
     </script>
   </body>
