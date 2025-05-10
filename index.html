@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Choisis ta plus belle photo 😎</title>
+    <style>
+      body {
+        font-family: "Segoe UI", sans-serif;
+        text-align: center;
+        background: #00529c;
+        margin: 0;
+        color: white;
+      }
+      header {
+        background: white;
+        padding: 15px;
+        border-bottom: 3px solid #00529c;
+      }
+      img.logo {
+        height: 60px;
+      }
+
+      select#nameSelect {
+        color: #00529c;
+        font-weight: bold;
+      }
+      select,
+      button {
+        padding: 10px;
+        margin-top: 20px;
+        font-size: 16px;
+        border: 2px solid #00529c;
+        border-radius: 6px;
+      }
+      .photo-grid {
+        margin-top: 10px;
+        display: none;
+        justify-content: center;
+        gap: 10px;
+      }
+      .photo {
+        width: 150px;
+        border: 4px solid transparent;
+        border-radius: 10px;
+        cursor: pointer;
+      }
+      .selected {
+        border-color: #9c0000;
+      }
+      .submit {
+        background-color: white;
+        color: #00529c;
+        font-weight: bold;
+        border: none;
+        margin-top: 20px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <img src="./logo.png" alt="Logo" class="logo" />
+    </header>
+    <h1>Hi Everyone !</h1>
+    <h3>
+      🎯 Choisissez votre photo préférée pour les supports de communication 🎯
+    </h3>
+
+    <select id="nameSelect" onchange="loadPhotos()">
+      <option value="">-- Je choisis mon nom --</option>
+      <option value="Amir">Amir</option>
+      <option value="karim">Karim</option>
+      <option value="rachid">Rachid</option>
+
+      <!-- Ajoute les autres noms -->
+    </select>
+    <div id="photoContainer" style="display: none">
+      <!-- tes images ici -->
+
+      <div class="photo-grid" id="photoGrid">
+        <img id="face" class="photo" onclick="selectPhoto(this)" alt="Face" />
+        <img
+          id="gauche"
+          class="photo"
+          onclick="selectPhoto(this)"
+          alt="Gauche"
+        />
+        <img
+          id="droite"
+          class="photo"
+          onclick="selectPhoto(this)"
+          alt="Droite"
+        />
+      </div>
+    </div>
+    <button class="submit" onclick="submitChoice()">C’est celle-là !</button>
+
+    <script>
+      const photoGrid = document.getElementById("photoGrid");
+      let selected = "",
+        name = "";
+
+      function loadPhotos() {
+        name = document.getElementById("nameSelect").value;
+        if (!name) return;
+        photoGrid.style.display = "flex";
+        document.getElementById("face").src = `photos/${name}_face.png`;
+        document.getElementById("gauche").src = `photos/${name}_gauche.png`;
+        document.getElementById("droite").src = `photos/${name}_droite.png`;
+        document
+          .querySelectorAll(".photo")
+          .forEach((p) => p.classList.remove("selected"));
+        selected = "";
+        document.getElementById("photoContainer").style.display = "block";
+      }
+
+      function selectPhoto(img) {
+        document
+          .querySelectorAll(".photo")
+          .forEach((p) => p.classList.remove("selected"));
+        img.classList.add("selected");
+        selected = img.id;
+      }
+
+      function submitChoice() {
+        if (!name || !selected) {
+          alert("Choisis ton nom et une photo 😅");
+          return;
+        }
+
+        fetch(
+          "https://script.google.com/macros/s/AKfycbzOKdbjfsB-YDSy2YVcK-pT3hWISn7-9Bd2Xiope9iu5FxYLBCQv0CLfw06K3xx5iKm/exec",
+          {
+            method: "POST",
+            body: JSON.stringify({ name, photo: selected }),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        )
+          .then((res) => res.text())
+          .then((msg) =>
+            alert("👍 Super !! On a bien noté votre choix royal 👑")
+          )
+          .catch((err) => alert("Erreur réseau 😢"));
+        // Réinitialise la sélection
+        document.getElementById("nameSelect").value = "";
+        // Cache les photos
+        document.getElementById("photoContainer").style.display = "none";
+        // Réinitialise la sélection de photo
+        selectedPhoto = null;
+        photoElements.forEach((p) => {
+          p.classList.remove("selected");
+        });
+      }
+    </script>
+  </body>
+</html>
