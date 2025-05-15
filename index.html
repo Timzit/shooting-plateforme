@@ -4,22 +4,51 @@
     <meta charset="UTF-8" />
     <title>Choisis ta plus belle photo 😎</title>
     <style>
+     #loader h1{    margin-bottom: 20px;} 
+  #loader {
+    flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 150%;
+    background-color: white; /* couleur de fond pendant le chargement */
+  
+    z-index: 9999;
+  }
+
+  #loader img {
+ /* taille de l'icône, ajuste selon ton besoin */
+    height: 205px;
+  }
+
+  /* Optionnel : animation de disparition en douceur */
+  .fade-out {
+    animation: fadeOut 5s forwards;
+  
+  }
+  
+
       body {
         font-family: "Segoe UI", sans-serif;
         text-align: center;
         background: #00529c;
         margin: 0;
+        padding: 0;
         color: white;
       }
       header {
         background: white;
-        padding: 15px;
+        padding: 10px;
         border-bottom: 3px solid #00529c;
+
       }
       img.logo {
         height: 60px;
       }
-
       select#nameSelect {
         color: #00529c;
         font-weight: bold;
@@ -27,7 +56,7 @@
       select,
       button {
         padding: 10px;
-        margin-top: 20px;
+        margin-top: 10px;
         font-size: 16px;
         border: 2px solid #00529c;
         border-radius: 6px;
@@ -39,7 +68,8 @@
         gap: 10px;
       }
       .photo {
-        width: 150px;
+        width: 180px;
+        height: 220px;
         border: 4px solid transparent;
         border-radius: 10px;
         cursor: pointer;
@@ -55,68 +85,141 @@
         margin-top: 20px;
         cursor: pointer;
       }
+    
+      footer {
+      color: white;
+      text-align: start;
+      padding: 15px 0;
+      font-size: 0.95em;
+      font-weight: bolder;
+      margin-top: 80px;
+      border-top: 1px solid #ddd;
+      margin-bottom: 0px;
+    }
+   
+      #tsparticles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
     </style>
   </head>
   <body>
+    <div id="loader">
+      <img src="./logo.png" alt="Logo" class="logo" />
+        <br><img src="./automatisation-du-marketing.gif" alt="Chargement...">
+        <p style="color: #00529c; font-weight: bolder; font-size: 60px;">Marketing service</p><br>
+      </div>
     <header>
       <img src="./logo.png" alt="Logo" class="logo" />
     </header>
-    <h1>Hi Everyone !</h1>
+    <p style="font-weight: bolder; font-size: 40px;" >Bienvenue dans votre espace marketing!</p>
     <h3>
       🎯 Choisissez votre photo préférée pour les supports de communication 🎯
     </h3>
 
     <select id="nameSelect" onchange="loadPhotos()">
       <option value="">-- Je choisis mon nom --</option>
+      <option value="Chouchar">Mr.Chouchar</option>
+      <option value="Rabhi">Mr.Rabhi</option>
+      <option value="Mostefaoui">Mr.Mostefaoui</option>
+      <option value="Bellatreche">Mr.Bellatreche</option>
+      <option value="Naima">Naima</option>
+      <option value="Faycel">Faycel</option>
+      <option value="Sif_Eddine">Sif_Eddine</option>
+      <option value="Wahab">Wahab</option>
       <option value="Amir">Amir</option>
-      <option value="karim">Karim</option>
-      <option value="rachid">Rachid</option>
-
+      <option value="Zied">Zied</option>
+      <option value="Nadia">Nadia</option>
+      <option value="lyna">Lyna</option>
+      <option value="Camelya">Camelya</option>
+      <option value="Amina">Amina</option>
+      <option value="Tinhinane">Tinhinane</option>
+      <option value="Rabea">Rabea</option>
+      <option value="Ihcene">Ihcene</option>
+      <option value="Faouzia">Faouzia</option>
+      <option value="Soumeya">Soumeya</option>
+      <option value="Cherif">Cherif</option>
+      <option value="Amer">Amer</option>
+      <option value="Fedoua">Fedoua</option>
+      <option value="Sidali">Sidali</option>
+      <option value="Salah">Salah</option>
+      <option value="Karim">Karim</option>
+      <option value="Amine">Amine</option>
       <!-- Ajoute les autres noms -->
     </select>
+
     <div id="photoContainer" style="display: none">
-      <!-- tes images ici -->
       <div class="photo-grid" id="photoGrid">
         <img id="face" class="photo" onclick="selectPhoto(this)" alt="Face" />
-        <img
-          id="gauche"
-          class="photo"
-          onclick="selectPhoto(this)"
-          alt="Gauche"
-        />
-        <img
-          id="droite"
-          class="photo"
-          onclick="selectPhoto(this)"
-          alt="Droite"
-        />
+        <img id="gauche" class="photo" onclick="selectPhoto(this)" alt="Gauche" />
+        <img id="droite" class="photo" onclick="selectPhoto(this)" alt="Droite" />
       </div>
     </div>
-    <button class="submit" onclick="submitChoice()">C’est celle-là !</button>
 
+    <button class="submit" onclick="submitChoice()">C’est celle-là !</button>
+    <!-- BOUTON ET SECTION COMMENTAIRE -->
+<div style="margin-top: 50px;">
+  <p style="font-style: italic; font-size: 18px; margin-bottom: 20px; font-weight: bolder;">
+    🌱 Ce sont vos mots qui inspirent nos actions 🌱
+  </p>
+    <button id="commentBtn" class="submit" onclick="toggleComment()"> 🧠 Vous avez une suggestion ? Cliquez ici, on vous écoute !</button>
+    <div id="commentSection" style="display: none; margin-top: 20px;">
+      <textarea id="userComment" rows="4" cols="50" placeholder="✍️ Participer anonymement..." 
+        style="padding: 10px; border-radius: 8px; border: 2px solid #00529c; width: 80%; max-width: 500px;"></textarea>
+      <br />
+      <button class="submit" style="margin-top: 10px;" onclick="sendComment()">✉️ Envoyer</button>
+    </div>
+  </div>
+ 
+
+ 
+  
+    <div id="particles-js"></div>
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
+
+    <!-- EmailJS SDK -->
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
     <script>
+   window.addEventListener('load', function () {
+    const loader = document.getElementById('loader');
+    
+    // Applique l'animation fade-out de 6 secondes
+    loader.classList.add('fade-out');
+    
+    // Cache complètement l'élément après l'animation de 6 secondes
+    setTimeout(function() {
+      loader.style.display = 'none';
+    }, 5000); // Correspond à la durée de l'animation
+  });
+
+
+
+      // Initialisation avec la clé publique EmailJS
+      (function () {
+        emailjs.init("M6n_2MNt34efhn_Jh"); // ← ta clé publique ici
+      })();
+
       const photoGrid = document.getElementById("photoGrid");
-      let selected = "",
-        name = "";
+      let selected = "", name = "";
 
       function loadPhotos() {
         name = document.getElementById("nameSelect").value;
         if (!name) return;
         photoGrid.style.display = "flex";
-        document.getElementById("face").src = `photos/${name}_face.png`;
-        document.getElementById("gauche").src = `photos/${name}_gauche.png`;
-        document.getElementById("droite").src = `photos/${name}_droite.png`;
-        document
-          .querySelectorAll(".photo")
-          .forEach((p) => p.classList.remove("selected"));
+        document.getElementById("face").src = `photos/${name}_face.jpg`;
+        document.getElementById("gauche").src = `photos/${name}_gauche.jpg`;
+        document.getElementById("droite").src = `photos/${name}_droite.jpg`;
+        document.querySelectorAll(".photo").forEach((p) => p.classList.remove("selected"));
         selected = "";
         document.getElementById("photoContainer").style.display = "block";
       }
 
       function selectPhoto(img) {
-        document
-          .querySelectorAll(".photo")
-          .forEach((p) => p.classList.remove("selected"));
+        document.querySelectorAll(".photo").forEach((p) => p.classList.remove("selected"));
         img.classList.add("selected");
         selected = img.id;
       }
@@ -127,36 +230,155 @@
           return;
         }
 
-        // Utilisation correcte des variables `name` et `selected`
-        const formData = new FormData();
-        formData.append("nom", name); // Utilisation de `name` au lieu de `userName`
-        formData.append("photo", selected); // Utilisation de `selected` au lieu de `photoChosen`
+        const templateParams = {
+          name: name,
+          photo: selected,
+        };
 
-        fetch(
-          "https://script.google.com/macros/s/AKfycbyda8LCO3JSiey28psfV6TGvAeqdXN-prMFH5piUJGKtbH6TDa3ZeZ0z-djqpbCpzVN1Q/exec",
-          {
-            method: "POST",
-            body: formData,
-          }
-        )
-          .then((response) => response.json())
-          .then((data) => {
-            console.log("Success:", data);
-            alert("👍 Super !! On a bien noté votre choix royal 👑");
-          })
-          .catch((error) => {
-            console.error("Error:", error);
-            alert("Erreur réseau 😢");
+        emailjs
+          .send("service_fjq51ol", "template_fqybssb", templateParams)
+          .then(function (response) {
+              console.log("Success:", response);
+              alert("👍 Super !! On a bien noté votre choix royal 👑");
+          }, function (error) {
+              console.error("Error:", error);
+              alert("Erreur réseau ou configuration EmailJS 😢");
           });
 
-        // Réinitialiser les éléments après soumission
+        // Réinitialisation
         document.getElementById("nameSelect").value = "";
         document.getElementById("photoContainer").style.display = "none";
-        document.querySelectorAll(".photo").forEach((p) => {
-          p.classList.remove("selected");
-        });
-        selected = ""; // Réinitialisation de la sélection
+        document.querySelectorAll(".photo").forEach((p) => p.classList.remove("selected"));
+        selected = "";
       }
+      window.addEventListener('DOMContentLoaded', function () {
+  document.getElementById("nameSelect").selectedIndex = 0;
+});
+function loadPhotos() {
+  name = document.getElementById("nameSelect").value;
+
+  // Noms protégés par mot de passe
+  const protectedNames = {
+    "Rabhi": "Rockwell2025",
+    "Mostefaoui": "Rockwell2025",
+    "Chouchar": "Rockwell2025",
+    "Naima": "Naima",
+  };
+
+  // Si le nom est protégé
+  if (protectedNames[name]) {
+    const pwd = prompt("Ce contenu est protégé. Veuillez entrer le mot de passe :");
+    if (pwd !== protectedNames[name]) {
+      alert("Mot de passe incorrect.");
+      // Réinitialiser le champ
+      document.getElementById("nameSelect").selectedIndex = 0;
+      return;
+    }
+  }
+
+  if (!name) return;
+  
+  photoGrid.style.display = "flex";
+  document.getElementById("face").src = `photos/${name}_face.jpg`;
+  document.getElementById("gauche").src = `photos/${name}_gauche.jpg`;
+  document.getElementById("droite").src = `photos/${name}_droite.jpg`;
+  document.querySelectorAll(".photo").forEach((p) => p.classList.remove("selected"));
+  selected = "";
+  document.getElementById("photoContainer").style.display = "block";
+}
+
+      tsParticles.load("tsparticles", {
+      fullScreen: { enable: false },
+      particles: {
+        number: {
+          value: 9,
+          density: {
+            enable: true,
+            area: 800
+          }
+        },
+        color: {
+          color:"#fff",
+        },
+        shape: {
+          type: "circle"
+        },
+
+        opacity: {
+          value: 0.5
+        },
+        size: {
+          value: 150,
+          random: true
+        },
+        move: {
+          enable: true,
+          speed: 0.9,
+          direction: "none",
+          random: false,
+          straight: false,
+          outModes: {
+            default: "out"
+          }
+        },
+      },
+      interactivity: {
+        events: {
+          onHover: {
+            enable: true,
+            mode: "repulse"
+          }
+        },
+        modes: {
+          repulse: {
+            distance: 600,
+          }
+        }
+      },
+      detectRetina: true
+    });
     </script>
+    <script type="text/javascript"
+    src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+</script>
+<script type="text/javascript">
+(function(){
+  emailjs.init({
+    publicKey: "M6n_2MNt34efhn_Jh",
+  });
+})();
+function toggleComment() {
+  const section = document.getElementById("commentSection");
+  section.style.display = section.style.display === "none" ? "block" : "none";
+}
+
+function sendComment() {
+  const comment = document.getElementById("userComment").value.trim();
+
+  if (!comment) {
+    alert("📝 Merci d’écrire un petit mot avant d’envoyer !");
+    return;
+  }
+
+  const commentParams = {
+    comment: comment,
+    name: name || "Anonyme",
+  };
+
+  emailjs.send("service_fjq51ol", "template_esmn237", commentParams)
+    .then(function (response) {
+      alert("💬 Merci pour ton message ! Il est bien arrivé.");
+      document.getElementById("userComment").value = "";
+      document.getElementById("commentSection").style.display = "none";
+    }, function (error) {
+      console.error("Erreur:", error);
+      alert("Oups 😓 Une erreur est survenue...");
+    });
+}
+
+</script>
+<footer>
+  © Fedoua 2025 (Tous droits réservés)
+</footer>
   </body>
 </html>
