@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <title>Choisis ta plus belle photo 😎</title>
+    
     <style>
      #loader h1{    margin-bottom: 20px;} 
   #loader {
@@ -86,7 +87,136 @@
         margin-top: 20px;
         cursor: pointer;
       }
-    
+      .submit:hover {
+  background-color: #76b7fd;
+}
+    .custom-select {
+  width: 260px;
+  padding: 10px;
+  font-size: 16px;
+  color: #00529c;
+  font-weight: bold;
+  margin-top: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.image-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.image-gallery img {
+  max-width: 500px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.image-gallery img:hover {
+  transform: scale(1.05);
+  border-color: #007BFF;
+}
+
+.image-gallery img.selected {
+  border-color: #28a745;
+}
+
+.custom-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bolder;
+  border: 2px solid #00529c;
+  border-radius: 6px;
+  background-color: white;
+  color:#00529c;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.custom-button:hover {
+  background-color: #76b7fd;
+}
+
+.custom-button:disabled {
+  background-color: #aaa;
+  cursor: not-allowed;
+}
+
+.download-button {
+ border: 2px solid #00529c;
+  border-radius: 6px;
+  background-color: white;
+  color:#00529c;
+  padding: 12px 24px;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: bolder;
+  transition: background-color 0.3s ease;
+}
+
+.download-button:hover {
+  background-color: #76b7fd;
+}
+
+
+#countdown-container {
+  background-color: #2975b8;
+  color: white;
+  padding: 40px 20px;
+  text-align: center;
+  border-color: #001527;
+  border-width: 2px;
+  border-radius: 20px;
+  max-width: 600px;
+  margin: 60px auto;
+  box-shadow: 0 0 20px rgba(0, 82, 156, 0.4);
+  font-family: "Segoe UI", sans-serif;
+}
+
+#countdown-container .title {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 25px;
+}
+
+#countdown {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.time-box {
+  background-color: white;
+  color: #00529c;
+  border-radius: 10px;
+  padding: 10px 15px;
+  min-width: 70px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.number {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.label {
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.subtitle {
+  font-size: 16px;
+  margin-top: 20px;
+  font-style: italic;
+  font-weight: bolder;
+}
+
+
       footer {
       color: white;
       text-align: start;
@@ -107,6 +237,7 @@
   z-index: -1;
 }
     </style>
+    
   </head>
   <body>
     <div id="loader">
@@ -161,7 +292,47 @@
       </div>
     </div>
 
-    <button class="submit" onclick="submitChoice()">C’est celle-là !</button>
+
+<button class="submit" onclick="submitChoice()">C’est celle-là !</button>
+ <button class="submit" onclick="downloadSelectedPhoto()">⬇️ Télécharger</button>
+
+ <!-- Division -->
+
+ <div class="form-section" style="margin-top: 60px;">
+  <label for="division-select" style="font-weight: bolder;font-size: larger;">Télécharge photo sélectionnée: <br></label>
+  <select id="division-select" class="custom-select">
+    <option value="">-- Choisissez une division --</option>
+     <option value="administration">Administration</option>
+      <option value="water">Water</option>
+    <option value="petrochimie">Pétrochimie</option>
+    <option value="oilgas">Oil & Gas</option>
+     <option value="epc">EPC</option>
+    <option value="industrie">Industrie</option>
+    <option value="projet">Projet</option>
+  </select>
+</div>
+
+<div id="division-gallery" class="image-gallery"></div>
+
+<div id="download-section" style="display: none; text-align: center; margin-top: 20px;">
+  <button id="download-btn" class="custom-button" disabled>⬇️ Télécharger</button>
+</div>
+
+
+<!-- Photo global -->
+
+<div style="width: 700px; height: 2px; background-color:white; margin: 40px auto;"></div>
+
+<!-- Zone photo globale -->
+<div id="global-photo-section" style="text-align: center; margin-top: 30px;">
+  <img src="./_Z4T2095.JPG" alt="Photo de groupe" style="max-width: 80%; height: auto; border-radius: 20px; box-shadow: 0 0 10px rgba(0,0,0,0.9); border: #001527; border-width: 20px;">
+
+  <!-- Bouton de téléchargement -->
+  <div style="margin-top: 30px;">
+    <a href="./_Z4T2095.JPG" download class="download-button">📥 Télécharger cette photo</a>
+  </div>
+</div>
+
     <!-- BOUTON ET SECTION COMMENTAIRE -->
 <div style="margin-top: 50px;">
   <p style="font-style: italic; font-size: 18px; margin-bottom: 20px; font-weight: bolder;">
@@ -175,9 +346,35 @@
       <button class="submit" style="margin-top: 10px;" onclick="sendComment()">✉️ Envoyer</button>
     </div>
   </div>
- 
-
- 
+ <div style="width: 700px; height: 2px; background-color:white; margin: 60px auto;"></div>
+<!-- Napec  -->
+ <div id="countdown-container">
+  <div class="title">
+    <i class="fas fa-calendar-alt"></i> NAPEC 2025 arrive bientôt⏳, soyez prêts!
+  </div>
+  <div id="countdown">
+    <div class="time-box">
+      <div id="days" class="number">0</div>
+      <div class="label">Jours</div>
+    </div>
+    <div class="time-box">
+      <div id="hours" class="number">0</div>
+      <div class="label">Heures</div>
+    </div>
+    <div class="time-box">
+      <div id="minutes" class="number">0</div>
+      <div class="label">Minutes</div>
+    </div>
+    <div class="time-box">
+      <div id="seconds" class="number">0</div>
+      <div class="label">Secondes</div>
+    </div>
+  </div>
+  <div class="subtitle">
+    <i class="fas fa-map-marker-alt" style="font-weight: bolder;"></i> Rendez-vous à Oran du 6 au 8 octobre 2025
+  </div>
+</div>
+<!-- NAPEC -->
   
     <div id="particles-js"></div>
     <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
@@ -288,6 +485,96 @@ function loadPhotos() {
   document.getElementById("photoContainer").style.display = "block";
 }
 
+function downloadSelectedPhoto() {
+  if (!name || !selected) {
+    alert("Choisis ton nom et une photo à télécharger 😅");
+    return;
+ document.getElementById("photoContainer").innerHTML = '';
+      document.getElementById("nomSelect").value = '';
+  }
+      
+   
+////////////////////////////////////
+
+  const fileName = `photos/${name}_${selected}.jpg`;
+  const link = document.createElement("a");
+  link.href = fileName;
+  link.download = `${name}_${selected}.jpg`;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+const divisionImages = {
+  administration: ['admin1.jpg','admin2.jpg'],
+  water: ['water1.jpg', 'water2.jpg'],
+  petrochimie: ['petro1.jpg'],
+  oilgas: ['oil1.jpg', 'oil2.jpg'],
+  epc: ['epc1.jpg', 'epc2.jpg'],
+  industrie: ['industrie1.jpg'],
+  projet: ['projet1.jpg', 'projet2.jpg']
+};
+localStorage.removeItem('selectedDivision');
+const select = document.getElementById('division-select');
+const gallery = document.getElementById('division-gallery');
+const downloadBtn = document.getElementById('download-btn');
+const downloadSection = document.getElementById('download-section');
+
+let selectedImage = null;
+
+
+select.addEventListener('change', () => {
+  const value = select.value;
+  localStorage.setItem('selectedDivision', value); // 🔹 Sauvegarde la sélection
+  updateGallery(value); // 🔹 Appelle la nouvelle fonction
+});
+ 
+    
+function updateGallery(value) {
+  gallery.innerHTML = '';
+  selectedImage = null;
+  downloadBtn.disabled = true;
+
+  if (value && divisionImages[value]) {
+    divisionImages[value].forEach(imgName => {
+      const img = document.createElement('img');
+      img.src = `./images/${imgName}`;
+      img.alt = imgName;
+      img.addEventListener('click', () => {
+        document.querySelectorAll('.image-gallery img').forEach(i => i.classList.remove('selected'));
+        img.classList.add('selected');
+        selectedImage = img.src;
+        downloadBtn.disabled = false;
+      });
+      gallery.appendChild(img);
+    });
+    downloadSection.style.display = 'block';
+  } else {
+    downloadSection.style.display = 'none';
+  }
+}
+
+
+downloadBtn.addEventListener('click', () => {
+  if (selectedImage) {
+    const a = document.createElement('a');
+    a.href = selectedImage;
+    a.download = selectedImage.split('/').pop();
+    a.click();
+  }
+  // Réinitialiser le menu déroulant
+select.value = '';
+localStorage.removeItem('selectedDivision');
+
+// Vider les photos
+gallery.innerHTML = '';
+
+// Masquer la section de téléchargement et désactiver le bouton
+downloadSection.style.display = 'none';
+downloadBtn.disabled = true;
+});
+/////////////////////////////
+
+///////////////////////////////
       tsParticles.load("tsparticles", {
       fullScreen: { enable: false },
       particles: {
@@ -377,9 +664,51 @@ function sendComment() {
     });
 }
 
+// localStorage.removeItem('selectedDivision');
+// document.addEventListener("DOMContentLoaded", function () {
+//   document.getElementById("divisionSelect").selectedIndex = 0;
+// });
+
+document.addEventListener("DOMContentLoaded", function () {
+  // Forcer la réinitialisation de la sélection
+  const select = document.getElementById("division-select");
+  if (select) {
+    select.selectedIndex = 0; // Cela sélectionne la première option
+  }
+
+  // Supprimer la division mémorisée (au cas où)
+  localStorage.removeItem("selectedDivision");
+});
 </script>
 <footer>
   © Fedoua 2025 (Tous droits réservés)
 </footer>
+<script>
+  const targetDate = new Date("2025-10-06T00:00:00").getTime();
+
+  function updateCountdown() {
+    const now = new Date().getTime();
+    const diff = targetDate - now;
+
+    if (diff <= 0) {
+      document.getElementById("countdown").innerHTML = "<div>NAPEC est là !</div>";
+      return;
+    }
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+    document.getElementById("days").innerText = days;
+    document.getElementById("hours").innerText = hours;
+    document.getElementById("minutes").innerText = minutes;
+    document.getElementById("seconds").innerText = seconds;
+  }
+
+  setInterval(updateCountdown, 1000);
+  updateCountdown();
+</script>
+
   </body>
 </html>
