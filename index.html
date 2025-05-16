@@ -33,6 +33,9 @@
   
   }
   
+html {
+  scroll-behavior: smooth;
+}
 
       body {
         font-family: "Segoe UI", sans-serif;
@@ -48,9 +51,11 @@
         border-bottom: 3px solid #00529c;
 
       }
+
       img.logo {
         height: 60px;
       }
+      
       select#nameSelect {
         color: #00529c;
         font-weight: bold;
@@ -248,7 +253,8 @@
     <header>
       <img src="./logo.png" alt="Logo" class="logo" />
     </header>
-    <p style="font-weight: bolder; font-size: 40px;" >Bienvenue dans votre espace marketing!</p>
+    <!-- <p style="font-weight: bolder; font-size: 40px;" >Bienvenue dans votre espace marketing!</p> -->
+  <p id="typed-text" style="font-weight: bolder; font-size: 40px;"></p>
     <h3>
       🎯 Choisissez votre photo préférée pour les supports de communication 🎯
     </h3>
@@ -375,6 +381,12 @@
   </div>
 </div>
 <!-- NAPEC -->
+
+<!-- //////////////////////////// -->
+  <div style="width: 700px; height: 2px; background-color:white; margin: 60px auto;"></div>
+<h2 id="quote"></h2>
+
+<!-- ///////////////////// -->
   
     <div id="particles-js"></div>
     <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
@@ -628,6 +640,7 @@ downloadBtn.disabled = true;
     </script>
     <script type="text/javascript"
     src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+
 </script>
 <script type="text/javascript">
 (function(){
@@ -709,6 +722,50 @@ document.addEventListener("DOMContentLoaded", function () {
   setInterval(updateCountdown, 1000);
   updateCountdown();
 </script>
+<script>
+const quotes = [
+  " 💡Petits détails, grandes réussites💡",
+   "💡Les meilleures idées naissent du partage💡",
+  "💡Une seule idée peut faire toute la différence💡",
+  "💡Ensemble, on va plus loin, surtout en marketing💡",
+  "💡Le marketing commence là où l’écoute devient stratégie💡",
+  "💡Une bonne idée ne sert à rien si elle reste dans un tiroir💡",
+  "💡Il n’y a pas de petites idées, seulement des idées non exprimées💡",
+  "💡Chaque voix compte, chaque idée construit notre impact💡",
+  "💡Le client change chaque jour. Nos idées aussi💡",
+  "💡Le marketing n’est pas un service, c’est un état d’esprit💡"
 
+];
+document.getElementById("quote").innerText = quotes[Math.floor(Math.random() * quotes.length)];
+</script>
+<script>
+  const text = "Bienvenue dans votre espace marketing!";
+  let index = 0;
+
+  function type() {
+    if (index < text.length) {
+      document.getElementById("typed-text").innerHTML += text.charAt(index);
+      index++;
+      setTimeout(type, 100);
+    } else {
+      setTimeout(() => {
+        document.getElementById("typed-text").innerHTML = "";
+        index = 0;
+        type();
+      }, 3000);
+    }
+  }
+
+  // Lancer l'effet de frappe quand la page est chargée
+  window.addEventListener("load", type);
+
+  // Remonter en haut de la page au chargement
+  window.addEventListener("load", function () {
+    window.scrollTo(0, 0);
+  });
+</script>
   </body>
+  <script> window.onload = function() {
+  window.scrollTo(0, 0);
+};</script>
 </html>
