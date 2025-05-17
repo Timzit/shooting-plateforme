@@ -51,6 +51,92 @@ html {
         border-bottom: 3px solid #00529c;
 
       }
+      /* .profil-container {
+  position: fixed;
+  top: 10px;
+  right: 20px;
+  text-align: center;
+  z-index: 1000;
+}
+
+.photo-marketing {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 3px solid #00529c;
+  object-fit: cover;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease;
+}
+
+.photo-marketing:hover {
+  transform: scale(1.4);
+}
+
+.titre-poste {
+  font-size: 14px;
+  color: white;
+  font-weight: bold;
+  margin-top: 5px;
+} */
+
+.profil-container {
+  position: fixed;
+  top: 10px;
+  right: 20px;
+  text-align: center;
+  z-index: 1000;
+}
+
+.photo-link {
+  position: relative;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.photo-marketing {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 3px solid #00529c;
+  object-fit: cover;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease;
+}
+
+.photo-marketing:hover {
+  transform: scale(1.3);
+}
+
+.hover-text {
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #00529c;
+  font-weight: bolder;
+  color: white;
+  font-size: 12px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  white-space: nowrap;
+}
+
+.photo-link:hover .hover-text {
+  opacity: 1;
+}
+
+.titre-poste {
+  font-size: 12px;
+  color:white;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+
 
       img.logo {
         height: 60px;
@@ -252,6 +338,18 @@ html {
       </div>
     <header>
       <img src="./logo.png" alt="Logo" class="logo" />
+      <!-- <div class="profil-container">
+  
+  <img src="./photos/Fedoua_Gauche.jpg" alt="Photo de Fedoua" class="photo-marketing">
+          <p class="titre-poste" style="margin-top: 10px;">Chargée Marketing</p>
+</div> -->
+<div class="profil-container">
+    <a href="#contact" class="photo-link">  <img src="./photos/Fedoua_Gauche.jpg" alt="Chargée marketing" class="photo-marketing">
+    <div class="hover-text">Contactez-moi</div></a>
+  
+  <div class="titre-poste">Chargée Marketing</div>
+</div>
+
     </header>
     <!-- <p style="font-weight: bolder; font-size: 40px;" >Bienvenue dans votre espace marketing!</p> -->
   <p id="typed-text" style="font-weight: bolder; font-size: 40px;"></p>
@@ -340,8 +438,12 @@ html {
 </div>
 
     <!-- BOUTON ET SECTION COMMENTAIRE -->
-<div style="margin-top: 50px;">
-  <p style="font-style: italic; font-size: 18px; margin-bottom: 20px; font-weight: bolder;">
+      <div id="contact" style="width: 700px; height: 2px; background-color:white; margin: 60px auto;"></div>
+<p  style="font-style: italic; font-size: 30px; margin-bottom: 20px; font-weight: bolder;">
+    Contact US
+  </p>
+      <div style="margin-top: 50px;">
+  <p style="font-style: italic; font-size: 20px; margin-bottom: 20px; font-weight: bolder;">
     🌱 Ce sont vos mots qui inspirent nos actions 🌱
   </p>
     <button id="commentBtn" class="submit" onclick="toggleComment()"> 🧠 Vous avez une suggestion ? Cliquez ici, on vous écoute !</button>
@@ -764,6 +866,7 @@ document.getElementById("quote").innerText = quotes[Math.floor(Math.random() * q
     window.scrollTo(0, 0);
   });
 </script>
+
   </body>
   <script> window.onload = function() {
   window.scrollTo(0, 0);
