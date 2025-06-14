@@ -113,12 +113,16 @@ html {
       img.logo {
         height: 60px;
       }
-      
+       select#nameSelect1 {
+        color: #00529c;
+        font-weight: bold;
+      }
       select#nameSelect {
         color: #00529c;
         font-weight: bold;
       }
       select,
+      
       button {
         padding: 10px;
         margin-top: 10px;
@@ -180,6 +184,9 @@ html {
   transition: transform 0.2s, border-color 0.2s;
 }
 
+.image-gallery img{
+  border: 4px solid white;  
+}
 .image-gallery img:hover {
   transform: scale(1.05);
   border-color: #007BFF;
@@ -299,6 +306,24 @@ html {
   height: 100%;
   z-index: -1;
 }
+
+
+ card-face {
+    border: 4px solid white;   /* Bordure blanche toujours visible */
+    border-radius: 10px;
+    cursor: pointer;
+    transition: border 0.2s ease;
+  }
+
+  .card-face.selected {
+    border-color: red;         /* Bordure rouge si sélectionnée */
+  }
+
+  /* PAS d'effet au survol */
+  .card-face:hover {
+    border-color: white;
+  }
+
     </style>
     
   </head>
@@ -323,8 +348,91 @@ html {
 </div>
 
     </header>
+
+   
+
     <!-- <p style="font-weight: bolder; font-size: 40px;" >Bienvenue dans votre espace marketing!</p> -->
   <p id="typed-text" style="font-weight: bolder; font-size: 40px;"></p>
+
+
+  <!-- Félicteer les conceerné  -->
+
+
+  <!-- <section id="celebration-section" style="position: relative; margin-top: 40px;">
+  <h2 style="color: white; font-size: 28px; font-weight: bold;">🎉 Félicitations à nos talents promus ! 🎉</h2> -->
+  
+
+  <!-- Confetti canvas -->
+  <!-- <canvas id="confetti-canvas" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;"></canvas> -->
+
+  <!-- Photos des promus -->
+  <!-- <div style="display: flex; justify-content: center; gap: 40px; margin-top: 40px; position: relative; z-index: 1;">
+    <div style="text-align: center;">
+      <img src="./photos/Amina_droite1.jpg" class="photo-marketing" style="width: 150px; height: 150px;" />
+      <div style="font-weight: bold; margin-top: 20px;">Khadidja B.</div>
+      <div style="font-size: 13px;">Responsable Projets</div>
+    </div>
+    <div style="text-align: center;">
+      <img src="./photos/Camelya_face1.jpg" class="photo-marketing" style="width: 180px; height: 180px;" />
+      <div style="font-weight: bold; margin-top: 20px;">Toufik C.</div>
+      <div style="font-size: 13px;">Chef de Département</div>
+    </div>
+    <div style="text-align: center;">
+      <img src="./photos/Tinhinane_Gauche1.jpg" class="photo-marketing" style="width: 150px; height: 150px;" />
+      <div style="font-weight: bold; margin-top: 20px;">Sarah R.</div>
+      <div style="font-size: 13px;">Responsable Qualité</div>
+    </div>
+  </div>
+</section> -->
+<!-- //////////////////////////// -->
+  <!-- <div style="width: 700px; height: 2px; background-color:white; margin: 60px auto;"></div> -->
+
+   <!-- :::::::::::::::::::::choisir ma carte -->
+
+ <h3> 🎀 Un duo, un style ! Choisissez le design parfait pour votre carte & votre badge 🎀</h3>
+ 
+     <select id="nameSelect1">
+      <option value="">-- Je choisis mon nom --</option>
+      <option value="M.Chouchar Said">M.Chouchar Said</option>
+      <option value="M.Chouchar Toufik">M.Chouchar Toufik</option>
+      <option value="M.Rabhi">M.Rabhi</option>
+      <option value="M.Boulariah">Mme.boulariah</option>
+      <option value="M.Bellatreche">M.Bellatreche</option>
+      <option value="M.Mostefaoui">M.Mostefaoui</option>
+   </select>
+  
+
+<select id="cardSelect" class="custom-select" onchange="showCardFaces()" >
+  <option value="">-- Sélectionne une carte --</option>
+  <option value="Duo1">Duo carte & badge 1</option>
+  <option value="Duo2">Duo carte & badge 2</option>
+  <option value="Duo3" onclick="notifyDuoInfo()">Duo carte & badge 3</option>
+</select>
+
+  
+<div id="cardFaces" style="display:none; margin-top: 20px;">
+  <h4>Pour choisir votr duo préféré veuillez sélectionner une seule image puis cliquer sur le bouton "C’est celle-là"</h4>
+  <div class="image-gallery" id="cardSides" style="display: flex; justify-content: center; gap: 20px;">
+    <img id="frontFace" src="" alt="Avant de la carte" width="300" height="180" style="margin-top: 90px;" class="card-face" onclick="selectFace(this)">
+    <img id="backFace" src="" alt="Arrière de la carte" width="300" height="180" style="margin-top: 90px;" class="card-face" onclick="selectFace(this)">
+      <img id="badgeFront" src="" alt="Avant du badge" width="250" class="card-face"onclick="selectFace(this)">
+    <img id="badgeBack" src="" alt="Arrière du badge" width="250" class="card-face" onclick="selectFace(this)">
+  </div>
+</div>
+
+  <br>
+  <button class="custom-button" onclick="confirmChoice()">✅ C’est celle-là</button>
+</div>
+
+<!-- //////////////////////////// -->
+  <div style="width: 700px; height: 2px; background-color:white; margin: 60px auto;"></div>
+
+
+<!-- ///////////////////// -->
+
+        <!-- :::::::::::::::::::::choisir ma carte -->
+
+
     <h3>
       🎯 Choisissez votre photo préférée pour les supports de communication 🎯
     </h3>
@@ -812,6 +920,117 @@ const quotes = [
 ];
 document.getElementById("quote").innerText = quotes[Math.floor(Math.random() * quotes.length)];
 </script>
+<!-- gestion des cartes  -->
+  <script>
+  const cardImages = {
+    Duo1: {
+      front: './photos/carte1_avant.png',
+      back: './photos/carte1_arriere.png',
+    badgeFront: './photos/badge1_avant.png',
+    badgeBack: './photos/badge1_arriere.png'
+    },
+    Duo2: {
+      front: './photos/carte2_avant.png',
+      back: './photos/carte2_arriere.png',
+          badgeFront: './photos/badge2_avant.png',
+    badgeBack: './photos/badge2_arriere.png'
+    },
+    Duo3: {
+      front: './photos/carte3_avant.png',
+      back: './photos/carte3_arriere.png',
+          badgeFront: './photos/badge3_avant.png',
+    badgeBack: './photos/badge3_arriere.png'
+    }
+  };
+  
+  // function showCardFaces() {
+  //   const selectedCard = document.getElementById('cardSelect').value;
+  //   if (selectedCard && cardImages[selectedCard]) {
+  //     document.getElementById('frontFace').src = cardImages[selectedCard].front;
+  //     document.getElementById('backFace').src = cardImages[selectedCard].back;
+  //     document.getElementById('cardFaces').style.display = 'block';
+  //   } else {
+  //     document.getElementById('cardFaces').style.display = 'none';
+  //   }
+  // }
+  function showCardFaces() {
+  const selectedCard = document.getElementById('cardSelect').value;
+  if (selectedCard && cardImages[selectedCard]) {
+    const images = cardImages[selectedCard];
+    document.getElementById('frontFace').src = images.front;
+    document.getElementById('backFace').src = images.back;
+    document.getElementById('badgeFront').src = images.badgeFront;
+    document.getElementById('badgeBack').src = images.badgeBack;
+    document.getElementById('cardFaces').style.display = 'block';
+  } else {
+    document.getElementById('cardFaces').style.display = 'none';
+  }
+}
+let duoMessageShown = false; // Pour ne l’afficher qu’une seule fois
+
+function notifyDuoInfo() {
+  if (duoMessageShown) return; // ne pas répéter
+
+  const name = document.getElementById('nameSelect1')?.value || 'utilisateur';
+
+  alert(`ℹ️ Si aucun duo ne vous plaît, gardez bien votre nom sélectionné, puis allez dans la section “Connectons ensemble” pour nous le dire
+
+`);
+
+  duoMessageShown = true;
+}
+
+  
+  function confirmChoice() {
+  const name = document.getElementById('nameSelect1').value;
+  const card = document.getElementById('cardSelect').value;
+
+  if (!name || !card) {
+    alert("Merci de sélectionner d'abord von nom puis un duo 😊!");
+    return;
+  }
+
+  // Message de confirmation
+  alert(`${name}, vous avez choisi le ${card} comme votre duo préférée🌸!`);
+
+   // Déterminer le lien de l'image de la carte sélectionnée
+    const imageUrl = cardImages[card]?.front || "";
+
+    // Envoi via EmailJS
+    emailjs.send("service_fjq51ol", "template_fqybssb",{
+  name: name,
+  card: card
+    }).then(function(response) {
+      alert(`Merci ${name} 🌟  C’est tout bon, votre duo est parti par email ! Le design retenu sera celui qui aura remporté le plus de votes`);
+      // Optionnel : reset du formulaire
+      document.getElementById('nameSelect1').selectedIndex = 0;
+      document.getElementById('cardSelect').selectedIndex = 0;
+    }, function(error) {
+      alert("Erreur lors de l'envoi : " + JSON.stringify(error));
+    });
+  // Réinitialiser les champs
+  document.getElementById('nameSelect1').value = '';
+  document.getElementById('cardSelect').value = '';
+
+  // Cacher les images
+  document.getElementById('cardFaces').style.display = 'none';
+
+  // Vider les src des images (pour ne pas laisser les anciennes visibles en HTML)
+  document.getElementById('frontFace').src = '';
+  document.getElementById('backFace').src = '';
+}
+
+    function selectFace(imgElement) {
+    document.querySelectorAll('.card-face').forEach(img => {
+      img.classList.remove('selected');
+    });
+    imgElement.classList.add('selected');
+
+
+  }
+</script>
+
+
 <script>
   const text = "Bienvenue dans votre espace marketing!";
   let index = 0;
@@ -830,6 +1049,8 @@ document.getElementById("quote").innerText = quotes[Math.floor(Math.random() * q
     }
   }
 
+
+  
   // Lancer l'effet de frappe quand la page est chargée
   window.addEventListener("load", type);
 
@@ -838,9 +1059,35 @@ document.getElementById("quote").innerText = quotes[Math.floor(Math.random() * q
     window.scrollTo(0, 0);
   });
 </script>
+  <!-- Clebration -->
+<script src="https://cdn.jsdelivr.net/npm/confetti-js@0.0.18/dist/index.min.js"></script>
+<script>
+  const confettiSettings = {
+    target: 'confetti-canvas',
+    max: 100,
+    size: 1.2,
+    animate: true,
+    props: ['circle', 'square', 'triangle'],
+    colors: [[255,255,255],[0,82,156],[255,215,0],[255,69,0]],
+    clock: 15,
+    rotate: true,
+    start_from_edge: false,
+    respawn: true,
+    width: window.innerWidth,
+    height: 300
+  };
+
+  const confetti = new ConfettiGenerator(confettiSettings);
+  confetti.render();
+</script>
 
   </body>
   <script> window.onload = function() {
   window.scrollTo(0, 0);
+  document.getElementById('nameSelect1').value = '';
+    document.getElementById('cardSelect').value = '';
+    document.getElementById('cardFaces').style.display = 'none';
+    document.getElementById('frontFace').src = '';
+    document.getElementById('backFace').src = '';
 };</script>
 </html>
