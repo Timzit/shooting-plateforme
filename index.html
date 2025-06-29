@@ -354,6 +354,29 @@ html {
     <!-- <p style="font-weight: bolder; font-size: 40px;" >Bienvenue dans votre espace marketing!</p> -->
   <p id="typed-text" style="font-weight: bolder; font-size: 40px;"></p>
 
+<!-- 
+  vidéo -->
+
+  <!-- Section Avis sur Stand 3D NAPEC -->
+<div id="stand-napec-section" style="text-align: center; margin-top: 60px;">
+  <h2 style="color: white; font-size: 28px; font-weight: bold;">🛠️ Donnez votre avis sur notre stand 3D pour le NAPEC !</h2>
+  <p style="font-size: 18px; font-style: italic;">Votre retour est précieux pour nous aider à peaufiner chaque détail ✨</p>
+
+  <!-- Vidéo 3D (remplacez src par le bon lien si besoin) -->
+  <video controls style="width: 80%; max-width: 700px; border-radius: 12px; margin-top: 20px; box-shadow: 0 0 20px rgba(0,0,0,0.4);">
+    <source src="./STAND.mp4" type="video/mp4">
+    Votre navigateur ne prend pas en charge la lecture vidéo.
+  </video>
+
+  <!-- Bouton vers la section commentaires -->
+  <div style="margin-top: 30px;">
+    <a href="#contact" class="custom-button" style="font-size: 18px;">💬 Je donne mon avis</a>
+  </div>
+</div>
+
+<!-- Séparateur visuel -->
+<div style="width: 700px; height: 2px; background-color:white; margin: 60px auto;"></div>
+
 
   <!-- Félicteer les conceerné  -->
 
@@ -402,7 +425,7 @@ html {
    </select>
   
 
-<select id="cardSelect" class="custom-select" onchange="showCardFaces()" onclick="notifyDuoInfo()" >
+<select id="cardSelect" class="custom-select" onchange="showCardFaces()"  >
   <option value="">-- Sélectionne une carte --</option>
   <option value="Duo1">Duo carte & badge 1</option>
   <option value="Duo2">Duo carte & badge 2</option>
